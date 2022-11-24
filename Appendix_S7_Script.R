@@ -84,7 +84,7 @@ phylosig(mcc_ult,propHF, method="lambda", test=TRUE)
 #### CHECK FOR MULTI-COLLINEARITY ####
 ## Testing for multi-collinearity of variables being used for moderators using pairwise Chi-square Tests of Independence and through calculation of VIF and GVIG values
 
-## Chi-square Tests (significance and Cramer's V values) - Table S15
+## Chi-square Tests (significance and Cramer's V values) - Table S11
 
 ## Threat Status vs. Management Level
 tbl_1<-table(data_final$Threat_Status_SUB,data_final$Wild.Managed.Captive)
@@ -137,7 +137,7 @@ chi2_10 = chisq.test(tbl_10,correct=F)
 c(chi2_10$statistic,chi2_10$p.value)
 sqrt(chi2_10$statistic/sum(tbl_10))
 
-## Variance Inflation Factors (VIF) and Generalised Variance Inflation Factors (GVIF) - Table S16
+## Variance Inflation Factors (VIF) and Generalised Variance Inflation Factors (GVIF) - Table S12
 mods_test<-rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Threat_Status_SUB)+factor(Wild.Managed.Captive)+factor(Nestboxes.Burrows.Sites)+factor(Incubation)+factor(Supplementary.Feeding), data=ies.da)
 vif.rma(mods_test)
 vif.rma(mods_test,table=TRUE)
@@ -237,7 +237,7 @@ overall_phylo_sp_incubate <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Stu
 summary(overall_phylo_sp_incubate)
 predict(overall_phylo_sp_incubate,newmods=c(0,1),transf=transf.ipft.hm, targ=list(ni=ies.da$Total))
 
-## Incubation Type - no captive - Table S13
+## Incubation Type - no captive - Table S23
 ies.da_no.captive=escalc(xi=Total-Cases, ni=Total, data=data_final_no.captive, measure="PFT", add=0) 
 
 overall_phylo_sp_incubate_no.captive <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor_no.captive),mods = ~relevel(factor(Incubation),ref="Natural"), test="t",method="REML", data=ies.da_no.captive)
@@ -249,7 +249,7 @@ overall_phylo_sp_suppfed <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Stud
 summary(overall_phylo_sp_suppfed)
 predict(overall_phylo_sp_suppfed,newmods=c(0,1),transf=transf.ipft.hm, targ=list(ni=ies.da$Total))
 
-## Supplementary Feeding - no captive - Table S13
+## Supplementary Feeding - no captive - Table S23
 overall_phylo_sp_suppfed_no.captive <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor_no.captive),mods = ~relevel(factor(Supplementary.Feeding),ref="No"), test="t", method="REML", data=ies.da_no.captive)
 summary(overall_phylo_sp_suppfed_no.captive)
 predict(overall_phylo_sp_suppfed_no.captive,newmods=c(0,1),transf=transf.ipft.hm, targ=list(ni=ies.da_no.captive$Total))
@@ -259,7 +259,7 @@ overall_phylo_sp_nest <- rma.mv(yi, vi,random=list(~1|effect_size_id,~1|Study.Na
 summary(overall_phylo_sp_nest)
 predict(overall_phylo_sp_nest,newmods=c(0,1),transf=transf.ipft.hm, targ=list(ni=ies.da$Total))
 
-## Artificial Nest Provision - no captive - Table S13
+## Artificial Nest Provision - no captive - Table S23
 overall_phylo_sp_nest_no.captive <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor_no.captive), mods = ~relevel(factor(Nestboxes.Burrows.Sites),ref="No"), test="t", method="REML", data=ies.da_no.captive)
 summary(overall_phylo_sp_nest_no.captive)
 predict(overall_phylo_sp_nest_no.captive,newmods=c(0,1),transf=transf.ipft.hm, targ=list(ni=ies.da_no.captive$Total))
@@ -277,7 +277,7 @@ summary(overall_phylo_sp_all)
 ## Multivariate mixed effects meta-analytical models used o test for evidence of interactions between threat status and Red List classification with management level, artificial incubation, supplementary feeding, and artificial nest provision.
 
 ## THREAT STATUS ####
-## Threat Status + Management Level - Table 2 and Table S17
+## Threat Status + Management Level - Table 2 and Table S13
 meta_additive <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive)+relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", method="REML", data=ies.da)
 summary(meta_additive) #Threat Status is significant
 anova(meta_additive,btt=2:3) #Management level is significant
@@ -287,7 +287,7 @@ predict(meta_additive,newmods=rbind(c(0,0,1),c(1,0,1),c(0,1,1)),transf=transf.ip
 meta_additive_nointercept <- rma.mv(yi, vi,random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive)+relevel(factor(Threat_Status_SUB),ref="Threatened")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_nointercept)
 
-## Threat Status * Management Level - Table S17
+## Threat Status * Management Level - Table S13
 meta_interactive_1 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive)*relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", method="REML", data=ies.da)
 summary(meta_interactive_1)
 anova(meta_interactive_1,btt=5:6) #Not significant = no interaction present
@@ -308,7 +308,7 @@ predict(meta_interactive_1,newmods=c(0,1,1,0,1),transf=transf.ipft.hm, targ=list
 meta_interactive_2 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive):factor(Threat_Status_SUB)-1, test="t", method="REML", data=ies.da)
 summary(meta_interactive_2)
 
-## Threat Status + Incubation Type - Table 2 and Table S18
+## Threat Status + Incubation Type - Table 2 and Table S14
 meta_additive_inc <- rma.mv(yi, vi,random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation)+relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", method="REML", data=ies.da)
 summary(meta_additive_inc) #Threat Status and Incubation type are significant
 predict(meta_additive_inc,newmods=rbind(c(0,0),c(1,0),c(0,1),c(1,1)),transf=transf.ipft.hm, targ=list(ni=ies.da$Total))
@@ -316,7 +316,7 @@ predict(meta_additive_inc,newmods=rbind(c(0,0),c(1,0),c(0,1),c(1,1)),transf=tran
 meta_additive_inc_nointercept <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation)+relevel(factor(Threat_Status_SUB),ref="Non-threatened")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_inc_nointercept)
 
-## Threat Status * Incubation Type - Table S18
+## Threat Status * Incubation Type - Table S14
 meta_interactive_inc_1 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation)*relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", method="REML", data=ies.da)
 summary(meta_interactive_inc_1) #Natural:Threatened = not significant --> No interactive effect
 anova(meta_interactive_inc_1, btt=4) #Not significant = no interaction present
@@ -335,7 +335,7 @@ predict(meta_interactive_inc_1,newmods=c(1,1,1),transf=transf.ipft.hm, targ=list
 meta_interactive_inc_2 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation):relevel(factor(Threat_Status_SUB),ref="Non-threatened")-1, test="t", method="REML", data=ies.da)
 summary(meta_interactive_inc_2)
 
-## Threat Status + Supplementary Feeding - Table 2 and Table S19
+## Threat Status + Supplementary Feeding - Table 2 and Table S15
 meta_additive_supp <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding)+relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", method="REML", data=ies.da)
 summary(meta_additive_supp) #Threat Status and Supplementary Feeding are significant
 predict(meta_additive_supp,newmods=rbind(c(0,0),c(1,0),c(0,1),c(1,1)),transf=transf.ipft.hm, targ=list(ni=ies.da$Total))
@@ -343,7 +343,7 @@ predict(meta_additive_supp,newmods=rbind(c(0,0),c(1,0),c(0,1),c(1,1)),transf=tra
 meta_additive_supp_nointercept <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding)+relevel(factor(Threat_Status_SUB),ref="Non-threatened")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_supp_nointercept)
 
-## Threat Status * Supplementary Feeding - Table S19
+## Threat Status * Supplementary Feeding - Table S15
 meta_interactive_supp_1 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding)*relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", method="REML", data=ies.da)
 summary(meta_interactive_supp_1) #Yes:Threatened = not significant --> No interactive effect
 anova(meta_interactive_supp_1, btt=4) #Not significant = no interaction present
@@ -362,7 +362,7 @@ predict(meta_interactive_supp_1,newmods=c(1,1,1),transf=transf.ipft.hm, targ=lis
 meta_interactive_supp_2 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding):relevel(factor(Threat_Status_SUB),ref="Non-threatened")-1, test="t", method="REML", data=ies.da)
 summary(meta_interactive_supp_2)
 
-## Threat Status + Artificial Nest Provision - Table 2 and Table S20
+## Threat Status + Artificial Nest Provision - Table 2 and Table S16
 meta_additive_nest <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Nestboxes.Burrows.Sites)+relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", method="REML", data=ies.da)
 summary(meta_additive_nest) #Threat Status and Artificial Nest Provision are significant
 predict(meta_additive_nest,newmods=rbind(c(0,0),c(1,0),c(0,1),c(1,1)),transf=transf.ipft.hm, targ=list(ni=ies.da$Total))
@@ -370,7 +370,7 @@ predict(meta_additive_nest,newmods=rbind(c(0,0),c(1,0),c(0,1),c(1,1)),transf=tra
 meta_additive_nest_nointercept <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Nestboxes.Burrows.Sites)+relevel(factor(Threat_Status_SUB),ref="Threatened")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_nest_nointercept)
 
-## Threat Status * Artificial Nest Provision - Table S20
+## Threat Status * Artificial Nest Provision - Table S16
 meta_interactive_nest_1 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Nestboxes.Burrows.Sites)*relevel(factor(Threat_Status_SUB),ref="Non-threatened"), test="t", 
 method="REML", data=ies.da)
 summary(meta_interactive_nest_1) #Yes:Threatened = not significant --> No interactive effect
@@ -391,7 +391,7 @@ meta_interactive_nest_2 <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study
 summary(meta_interactive_nest_2)
 
 ## RED LIST CLASSIFICATION ####
-## Red List Classification + Management Level - Table 2 and Table S21
+## Red List Classification + Management Level - Table 2 and Table S17
 meta_additive_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive)+relevel(factor(IUCN.Status.Current_SUB),ref="LC"), test="t", method="REML", data=ies.da)
 summary(meta_additive_redlist)
 anova(meta_additive_redlist,btt=2:3) #Management level is significant
@@ -401,7 +401,7 @@ predict(meta_additive_redlist,newmods=rbind(c(0,0,0,0,0,0),c(1,0,0,0,0,0),c(0,1,
 meta_additive_nointercept_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive)+relevel(factor(IUCN.Status.Current_SUB),ref="LC")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_nointercept_redlist)
 
-## Red List Classification * Management Level - Table S21
+## Red List Classification * Management Level - Table S17
 meta_interactive_1_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive)*relevel(factor(IUCN.Status.Current_SUB),ref="CR"), test="t",method="REML", data=ies.da)
 summary(meta_interactive_1_redlist)
 anova(meta_interactive_1_redlist,btt=8:15) #Not significant = no interaction present
@@ -419,7 +419,7 @@ predict(meta_interactive_1_redlist,newmods=c(0,1,0,0,0,0,0,0,0,0,0,0,0,0),transf
 meta_interactive_2_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Wild.Managed.Captive):relevel(factor(IUCN.Status.Current_SUB),ref="CR")-1, test="t", method="REML", data=ies.da)
 summary(meta_interactive_2_redlist)
 
-## Red List Classification + Incubation Type - Table 2 and Table S22
+## Red List Classification + Incubation Type - Table 2 and Table S18
 meta_additive_inc_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation)+relevel(factor(IUCN.Status.Current_SUB),ref="CR"), test="t", method="REML", data=ies.da)
 summary(meta_additive_inc_redlist) #Incubation Type is significant
 anova(meta_additive_inc_redlist,btt=3:6) #Red List Classification is significant
@@ -428,7 +428,7 @@ predict(meta_additive_inc_redlist,newmods=rbind(c(0,0,0,0,0),c(1,0,0,0,0)),trans
 meta_additive_nointercept_inc_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation)+relevel(factor(IUCN.Status.Current_SUB),ref="LC")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_nointercept_inc_redlist)
 
-## Red List Classification * Incubation Type - Table S22
+## Red List Classification * Incubation Type - Table S18
 meta_interactive_1_inc_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation)*relevel(factor(IUCN.Status.Current_SUB),ref="LC"), test="t", method="REML", data=ies.da)
 summary(meta_interactive_1_inc_redlist)
 anova(meta_interactive_1_inc_redlist,btt=7:10) #Not significant = no interaction present
@@ -445,7 +445,7 @@ predict(meta_interactive_1_inc_redlist,newmods=c(1,0,0,0,0,0,0,0,0),transf=trans
 meta_interactive_2_inc_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Incubation):relevel(factor(IUCN.Status.Current_SUB),ref="CR")-1, test="t", method="REML", data=ies.da)
 summary(meta_interactive_2_inc_redlist)
 
-## Red List Classification + Supplementary Feeding - Table 2 and Table S23
+## Red List Classification + Supplementary Feeding - Table 2 and Table S19
 meta_additive_supp_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding)+relevel(factor(IUCN.Status.Current_SUB),ref="LC"), test="t", method="REML", data=ies.da)
 summary(meta_additive_supp_redlist) #Supplementary Feeding is significant
 anova(meta_additive_supp_redlist,btt=3:6) #Red List Classification is significant
@@ -454,7 +454,7 @@ predict(meta_additive_supp_redlist,newmods=rbind(c(0,0,0,0,0),c(1,0,0,0,0)),tran
 meta_additive_nointercept_supp_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding)+relevel(factor(IUCN.Status.Current_SUB),ref="LC")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_nointercept_supp_redlist)
 
-## Red List Classification * Supplementary.Feeding - Table S23
+## Red List Classification * Supplementary.Feeding - Table S19
 meta_interactive_1_supp_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding)*relevel(factor(IUCN.Status.Current_SUB),ref="LC"), test="t", method="REML", data=ies.da)
 summary(meta_interactive_1_supp_redlist)
 anova(meta_interactive_1_supp_redlist,btt=7:10) #Not significant = no interaction present
@@ -471,7 +471,7 @@ predict(meta_interactive_1_supp_redlist,newmods=c(1,0,0,0,0,0,0,0,0),transf=tran
 meta_interactive_2_supp_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Supplementary.Feeding):relevel(factor(IUCN.Status.Current_SUB),ref="CR")-1, test="t", method="REML", data=ies.da)
 summary(meta_interactive_2_supp_redlist)
 
-## Red List Classification + Artificial Nest Provision - Table 2 and Table S24
+## Red List Classification + Artificial Nest Provision - Table 2 and Table S20
 meta_additive_nest_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Nestboxes.Burrows.Sites)+relevel(factor(IUCN.Status.Current_SUB),ref="LC"), test="t", method="REML", data=ies.da)
 summary(meta_additive_nest_redlist) #Artificial Nest Provision is significant
 anova(meta_additive_nest_redlist,btt=3:6) #Red List Classification is significant
@@ -480,7 +480,7 @@ predict(meta_additive_nest_redlist,newmods=rbind(c(0,0,0,0,0),c(1,0,0,0,0)),tran
 meta_additive_nointercept_nest_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Nestboxes.Burrows.Sites)+relevel(factor(IUCN.Status.Current_SUB),ref="LC")-1, test="t", method="REML", data=ies.da)
 summary(meta_additive_nointercept_nest_redlist)
 
-## Red List Classification * Artificial Nest Provision - Table S24
+## Red List Classification * Artificial Nest Provision - Table S20
 meta_interactive_1_nest_redlist <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~factor(Nestboxes.Burrows.Sites)*relevel(factor(IUCN.Status.Current_SUB),ref="CR"), test="t", method="REML", data=ies.da)
 summary(meta_interactive_1_nest_redlist)
 anova(meta_interactive_1_nest_redlist,btt=7:9) #Not significant = no interaction present
@@ -499,7 +499,7 @@ summary(meta_interactive_2_nest_redlist)
 
 #### ROBUSTNESS CHECKS ####
 
-## One intervention applied at a time - Table S14
+## One intervention applied at a time - Table S24
 ## Only artificial incubation
 data_final_onlyinc <- data_final[data_final$Incubation=="Artificial" & data_final$Supplementary.Feeding=="No" & data_final$Nestboxes.Burrows.Sites=="No",]
 ## Only supplementary feeding
@@ -601,7 +601,7 @@ predict(overall_phylo_sp_manage_NONTHREAT,newmods=rbind(c(0,0), c(1,0), c(0,1)),
 
 #### SENSITIVITY ANALYSES ####
 
-## Excluding Briskie & Mackintosh (2004) due to uncertainty around management details (see Appendix S6 for further details)
+## Excluding Briskie & Mackintosh (2004) due to uncertainty around management details (see Appendix S4 for further details)
 data_final_noBriskie <- data_final[data_final$Study.Name!="Briskie & Mackintosh 2004",]
 ies.da_no.Briskie=escalc(xi=Total-Cases, ni=Total, data=data_final_noBriskie, measure="PFT", add=0) 
 
@@ -682,11 +682,11 @@ P <- W - W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W
 100 * sum(overall_phylo_sp_no.Cooney$sigma2) / (sum(overall_phylo_sp_no.Cooney$sigma2) + (overall_phylo_sp_no.Cooney$k-overall_phylo_sp_no.Cooney$p)/sum(diag(P))) #Total I^2 = 99.28562
 100 * overall_phylo_sp_no.Cooney$sigma2 / (sum(overall_phylo_sp_no.Cooney$sigma2) + (overall_phylo_sp_no.Cooney$k-overall_phylo_sp_no.Cooney$p)/sum(diag(P))) #Within-study I^2 = 23.26942; Between-study I^2 = 15.38820; Between-species I^2 = 18.99683; Phylogenetic history = 41.63116 - Table S9
 
-## NOTE: Re-run all mixed effects multilevel meta-analysis models for the _no.outliers, _no.Briskie, and _no.Cooney datasets for Tables S10-12
+## NOTE: Re-run all mixed effects multilevel meta-analysis models for the _no.outliers, _no.Briskie, and _no.Cooney datasets for Tables S10, S25 and S26
 
 #### PUBLICATION BIAS ####
 
-## Taxonomy - Table S25
+## Taxonomy - Table S21
 ## Comparing final dataset to global distribution - By number of records
 data_final %>%
   count(Order)
@@ -710,7 +710,7 @@ taxa_bias_species <- matrix(data=c(dataset_taxa_species,taxa_species_result$expe
 dimnames(taxa_bias_species) = list(Dataset=c('Final_data','World'),Order=c('ACCIPITRIFORMES','ANSERIFORMES','BUCEROTIFORMES','CAPRIMULGIFORMES','CARIAMIFORMES','CATHARTIFORMES','CHARADRIIFORMES','CICONIIFORMES','COLIIFORMES','COLUMBIFORMES','CORACIIFORMES','CUCULIFORMES','EURYPYGIFORMES','FALCONIFORMES','GALLIFORMES','GAVIIFORMES','GRUIFORMES','LEPTOSOMIFORMES','MESITORNITHIFORMES','MUSOPHAGIFORMES','OPISTHOCOMIFORMES','OTIDIFORMES','PASSERIFORMES','PELECANIFORMES','PHAETHONTIFORMES','PHOENICOPTERIFORMES','PICIFORMES','PODICIPEDIFORMES','PROCELLARIIFORMES','PSITTACIFORMES','PTEROCLIFORMES','SPHENISCIFORMES','STRIGIFORMES','STRUTHIONIFORMES','SULIFORMES','TROGONIFORMES'))
 taxa_bias_species
 
-## Threat Status - Table S26
+## Threat Status - Table S22
 ## Comparing final dataset to global distribution - By number of records
 data_final %>%
   count(IUCN.Status.Current_SUB)
