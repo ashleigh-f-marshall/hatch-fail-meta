@@ -245,7 +245,7 @@ summary(overall_phylo_sp_incubate_no.captive)
 predict(overall_phylo_sp_incubate_no.captive,newmods=c(0,1),transf=transf.ipft.hm, targ=list(ni=ies.da_no.captive$Total))
 
 ## Supplementary Feeding - Table S8
-overall_phylo_sp_suppfed <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor_), mods = ~relevel(factor(Supplementary.Feeding),ref="No"), test="t", method="REML",data=ies.da)
+overall_phylo_sp_suppfed <- rma.mv(yi, vi, random=list(~1|effect_size_id,~1|Study.Name,~1|BirdTree.Tip,~1|phylo), R = list(phylo = bird_phylo_cor), mods = ~relevel(factor(Supplementary.Feeding),ref="No"), test="t", method="REML",data=ies.da)
 summary(overall_phylo_sp_suppfed)
 predict(overall_phylo_sp_suppfed,newmods=c(0,1),transf=transf.ipft.hm, targ=list(ni=ies.da$Total))
 
