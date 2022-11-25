@@ -178,10 +178,14 @@ anova(overall,overall_phylo_sp) #The model with phylogeny and species included i
 
 ## Use Profile Likelihood Plots to check the variance components are identifiable - Figure S2
 par(mfrow=c(4,1))
-profile(overall_phylo_sp,sigma2=1)
-profile(overall_phylo_sp,sigma2=2)
-profile(overall_phylo_sp,sigma2=3)
-profile(overall_phylo_sp,sigma2=4)
+sigma2=1
+profile(overall_phylo_sp,sigma2=1,ylab="Restricted log-likelihood",xlab=bquote(sigma[.(sigma2)]^2 ~ "value"),main=bquote("Profile plot for" ~ sigma[.(sigma2)]^2))
+sigma2=2
+profile(overall_phylo_sp,sigma2=2,ylab="Restricted log-likelihood",xlab=bquote(sigma[.(sigma2)]^2 ~ "value"),main=bquote("Profile plot for" ~ sigma[.(sigma2)]^2))
+sigma2=3
+profile(overall_phylo_sp,sigma2=3,ylab="Restricted log-likelihood",xlab=bquote(sigma[.(sigma2)]^2 ~ "value"),main=bquote("Profile plot for" ~ sigma[.(sigma2)]^2))
+sigma2=4
+profile(overall_phylo_sp,sigma2=4,ylab="Restricted log-likelihood",xlab=bquote(sigma[.(sigma2)]^2 ~ "value"),main=bquote("Profile plot for" ~ sigma[.(sigma2)]^2))
 par(mfrow=c(1,1))
 
 #### PARTITIONING HETEROGENEITY ####
