@@ -761,14 +761,14 @@ ggplot() +
 forest_data <- tibble(mean=c(NA,21.02,15.24,NA,27.95,23.41,16.60,17.57,15.13,NA,38.07,20.05,13.78,NA,37.38,14.38,NA,33.47,15.37,NA,21.34,15.89,NA,16.79),
                       lower = c(NA,11.62,7.42,NA,15.26,12.83,7.61,8.22,7.16,NA,26.60,12.02,7.25,NA,26.04,7.37,NA,23.03,8.57,NA,11.34,7.57,NA,8.28),
                       upper = c(NA,32.22,25.07,NA,42.67,35.93,28.02,29.35,25.24,NA,50.23,29.46,21.87,NA,49.45,23.09,NA,44.77,23.62,NA,33.37,26.38,NA,27.40),
-                      category = c(NA,"Threatened","Non-threatened",NA,"Critically Endangered","Endangered","Vulnerable","Near Threatened","Least Concern",NA,"Captive","Wild Managed","Wild",NA,"Artificial","Natural",NA,"Fed","Not Fed",NA,"Provided","Not Provided",NA,"All"),
+                      category = c(NA,"Threatened","Non-threatened",NA,"Critically Endangered","Endangered","Vulnerable","Near Threatened","Least Concern",NA,"Captive","Wild managed","Wild",NA,"Artificial","Natural",NA,"Fed","Not fed",NA,"Provided","Not provided",NA,"All"),
                       k = c(NA,"96","382",NA,"20","39","37","35","347",NA,"41","172","265",NA,"53","425",NA,"51","427",NA,"161","317",NA,"478"))
 header <- tibble(category=c("","Category"), k = c("","k"), summary=TRUE)
 empty_row <- tibble(mean=NA_real_)
 final_forest <- bind_rows(header, forest_data, empty_row)
 
 final_forest %>% 
-  forestplot(labeltext = c(category,k), title = "Forest Plot of Mean Effect Size (Hatching Failure %)", xlab = "Mean Hatching Failure (%)",
+  forestplot(labeltext = c(category,k), title = "Forest Plot of Mean Effect Size (Hatching Failure %)", xlab = "Mean hatching failure (%)",
              clip = c(0, 55), zero = 0, boxsize = 0.5,vertices = TRUE,
              xticks = c(0,2.5,5.0,7.5,10.0,12.5,15.0,17.5,20.0,22.5,25.0,27.5,30.0,32.5,35.0,37.5,40.0,42.5,45.0,47.5,50.0,52.5,55.0),
              txt_gp = fpTxtGp(
