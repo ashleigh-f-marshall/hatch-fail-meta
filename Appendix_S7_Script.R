@@ -842,63 +842,67 @@ coef(mod) #slope estimate is 0.176156
 ## Figure S5
 ## Final Dataset
 my.labels_tax_final <- c("Accipitriformes (n=3)","Anseriformes (n=24)","Bucerotiformes (n=2)","Caprimulgiformes (n=1)","Cathartiformes (n=6)","Charadriiformes (n=58)","Ciconiiformes (n=3)","Columbiformes (n=3)","Coraciiformes (n=3)","Cuculiformes (n=2)","Eurypygiformes (n=1)","Falconiformes (n=14)","Galliformes (n=25)","Gruiformes (n=13)","Otidiformes (n=2)","Passeriformes (n=245)","Pelecaniformes (n=12)","Piciformes (n=4)","Podicipediformes (n=1)","Procellariiformes (n=10)","Psittaciformes (n=12)","Pterocliformes (n=6)","Sphenisciformes (n=11)","Strigiformes (n=11)","Struthioniformes (n=5)","Suliformes (n=1)")
+my.labels_tax_final_italic <- c(expression(paste("Accipitriformes (", italic("n"), " = 3)")),expression(paste("Anseriformes (", italic("n"), " = 24)")),expression(paste("Bucerotiformes (", italic("n"), " = 2)")),expression(paste("Caprimulgiformes (", italic("n"), " = 1)")),expression(paste("Cathartiformes (", italic("n"), " = 6)")),expression(paste("Charadriiformes (", italic("n"), " = 58)")),expression(paste("Ciconiiformes (", italic("n"), " = 3)")),expression(paste("Columbiformes (", italic("n"), " = 3)")),expression(paste("Coraciiformes (", italic("n"), " = 3)")),expression(paste("Cuculiformes (", italic("n"), " = 2)")),expression(paste("Eurypygiformes (", italic("n"), " = 1)")),expression(paste("Falconiformes (", italic("n"), " = 14)")),expression(paste("Galliformes (", italic("n"), " = 25)")),expression(paste("Gruiformes (", italic("n"), " = 13)")),expression(paste("Otidiformes (", italic("n"), " = 2)")),expression(paste("Passeriformes (", italic("n"), " = 245)")),expression(paste("Pelecaniformes (", italic("n"), " = 12)")),expression(paste("Piciformes (", italic("n"), " = 4)")),expression(paste("Podicipediformes (", italic("n"), " = 1)")),expression(paste("Procellariiformes (", italic("n"), " = 10)")),expression(paste("Psittaciformes (", italic("n"), " = 12)")),expression(paste("Pterocliformes (", italic("n"), " = 6)")),expression(paste("Sphenisciformes (", italic("n"), " = 11)")),expression(paste("Strigiformes (", italic("n"), " = 11)")),expression(paste("Struthioniformes (", italic("n"), " = 5)")),expression(paste("Suliformes (", italic("n"), " = 1)")))
 taxonomy_plot_final <- data_final %>%
   mutate(Order = fct_relevel(Order,"Accipitriformes","Anseriformes","Bucerotiformes","Caprimulgiformes","Cathartiformes","Charadriiformes","Ciconiiformes","Columbiformes","Coraciiformes","Cuculiformes","Eurypygiformes","Falconiformes","Galliformes","Gruiformes","Otidiformes","Passeriformes","Pelecaniformes","Piciformes","Podicipediformes","Procellariiformes","Psittaciformes","Pterocliformes","Sphenisciformes","Strigiformes","Struthioniformes","Suliformes")) %>%
   ggplot(aes(x=Order, y=Mean.Hatching.Failure.std, fill=Order)) + 
   geom_boxplot() + 
-  labs(title="Plot of Mean Hatching Failure % according to Taxonomic Order\nFinal Dataset (n = 478)", x="Order", y="Mean Hatching Failure (%)")
+  labs(title="Plot of Mean Hatching Failure % according to Taxonomic Order\nFinal Dataset (n = 478)", x="Order", y="Mean hatching failure (%)")
 taxonomy_final <- taxonomy_plot_final + 
   theme_classic() + 
-  theme(axis.text.x=element_text(angle=90,hjust=0.95)) + 
-  scale_x_discrete(label=my.labels_tax_final) +  
-  scale_fill_discrete(name="Order",labels=my.labels_tax_final)
+  theme(axis.text.x=element_text(angle=90,hjust=0.95),legend.text.align = 0) + 
+  scale_x_discrete(label=my.labels_tax_final_italic) +  
+  scale_fill_discrete(name="Order",labels=my.labels_tax_final_italic)
 taxonomy_final
 
 #Final Dataset - limited to orders with at least 10 effect sizes
 data_final_10 <- data_final[data_final$Order!="Accipitriformes" & data_final$Order!="Bucerotiformes" & data_final$Order!="Caprimulgiformes" & data_final$Order!="Cathartiformes" & data_final$Order!="Ciconiiformes" & data_final$Order!="Columbiformes" & data_final$Order!="Coraciiformes" & data_final$Order!="Cuculiformes" & data_final$Order!="Eurypygiformes" & data_final$Order!="Otidiformes" & data_final$Order!="Piciformes" & data_final$Order!="Podicipediformes" & data_final$Order!="Pterocliformes" & data_final$Order!="Struthioniformes" & data_final$Order!="Suliformes", ]
 my.labels_tax_final_10 <- c("Anseriformes (n=24)","Charadriiformes (n=58)","Falconiformes (n=14)","Galliformes (n=25)","Gruiformes (n=13)","Passeriformes (n=245)","Pelecaniformes (n=12)","Procellariiformes (n=10)","Psittaciformes (n=12)","Sphenisciformes (n=11)","Strigiformes (n=11)")
+my.labels_tax_final_10_italic <- c(expression(paste("Anseriformes (", italic("n"), " = 24)")),expression(paste("Charadriiformes (", italic("n"), " = 58)")),expression(paste("Falconiformes (", italic("n"), " = 14)")),expression(paste("Galliformes (", italic("n"), " = 25)")),expression(paste("Gruiformes (", italic("n"), " = 13)")),expression(paste("Passeriformes (", italic("n"), " = 245)")),expression(paste("Pelecaniformes (", italic("n"), " = 12)")),expression(paste("Procellariiformes (", italic("n"), " = 10)")),expression(paste("Psittaciformes (", italic("n"), " = 12)")),expression(paste("Sphenisciformes (", italic("n"), " = 11)")),expression(paste("Strigiformes (", italic("n"), " = 11)")))
 taxonomy_plot_final_10 <- data_final_10 %>%
   mutate(Order = fct_relevel(Order,"Anseriformes","Charadriiformes","Falconiformes","Galliformes","Gruiformes","Passeriformes","Pelecaniformes","Procellariiformes","Psittaciformes","Sphenisciformes","Strigiformes")) %>%
   ggplot(aes(x=Order, y=Mean.Hatching.Failure.std, fill=Order)) + 
   geom_boxplot() + 
-  labs(title="Plot of Mean Hatching Failure % according to Taxonomic Order\nFinal Dataset - at least 10 records per order", x="Order", y="Mean Hatching Failure (%)")
+  labs(title="Plot of Mean Hatching Failure % according to Taxonomic Order\nFinal Dataset - at least 10 records per order", x="Order", y="Mean hatching failure (%)")
 taxonomy_final_10 <- taxonomy_plot_final_10 + 
   theme_classic() + 
-  theme(axis.text.x=element_text(angle=90,hjust=0.95)) +  
-  scale_x_discrete(label=my.labels_tax_final_10) +  
-  scale_fill_discrete(name="Order",labels=my.labels_tax_final_10) + 
-  scale_fill_manual(values=c("#EE8043","#A8A401","#3FC090","#3FC2AB","#3DBFC4","#37B5ED","#32ACFC","#B684FF","#D575FE","#F562DD","#F561C6"),labels=my.labels_tax_final_10)
+  theme(axis.text.x=element_text(angle=90,hjust=0.95),legend.text.align = 0) +  
+  scale_x_discrete(label=my.labels_tax_final_10_italic) +  
+  scale_fill_discrete(name="Order",labels=my.labels_tax_final_10_italic) + 
+  scale_fill_manual(values=c("#EE8043","#A8A401","#3FC090","#3FC2AB","#3DBFC4","#37B5ED","#32ACFC","#B684FF","#D575FE","#F562DD","#F561C6"),labels=my.labels_tax_final_10_italic)
 taxonomy_final_10
 
 ## Figure S6
 ## Wild Only
 my.labels_tax_final_wild <- c("Accipitriformes (n=3)","Anseriformes (n=10)","Bucerotiformes (n=1)","Caprimulgiformes (n=1)","Charadriiformes (n=49)","Ciconiiformes (n=3)","Columbiformes (n=1)","Coraciiformes (n=2)","Cuculiformes (n=2)","Eurypygiformes (n=1)","Falconiformes (n=4)","Galliformes (n=15)","Gruiformes (n=11)","Passeriformes (n=120)","Pelecaniformes (n=8)","Piciformes (n=4)","Podicipediformes (n=1)","Procellariiformes (n=9)","Psittaciformes (n=5)","Pterocliformes (n=1)","Sphenisciformes (n=10)","Struthioniformes (n=4)")
+my.labels_tax_final_wild_italic <- c(expression(paste("Accipitriformes (", italic("n"), " = 3)")),expression(paste("Anseriformes (", italic("n"), " = 10)")),expression(paste("Bucerotiformes (", italic("n"), " = 1)")),expression(paste("Caprimulgiformes (", italic("n"), " = 1)")),expression(paste("Charadriiformes (", italic("n"), " = 49)")),expression(paste("Ciconiiformes (", italic("n"), " = 3)")),expression(paste("Columbiformes (", italic("n"), " = 1)")),expression(paste("Coraciiformes (", italic("n"), " = 2)")),expression(paste("Cuculiformes (", italic("n"), " = 2)")),expression(paste("Eurypygiformes (", italic("n"), " = 1)")),expression(paste("Falconiformes (", italic("n"), " = 4)")),expression(paste("Galliformes (", italic("n"), " = 15)")),expression(paste("Gruiformes (", italic("n"), " = 11)")),expression(paste("Passeriformes (", italic("n"), " = 120)")),expression(paste("Pelecaniformes (", italic("n"), " = 8)")),expression(paste("Piciformes (", italic("n"), " = 4)")),expression(paste("Podicipediformes (", italic("n"), " = 1)")),expression(paste("Procellariiformes (", italic("n"), " = 9)")),expression(paste("Psittaciformes (", italic("n"), " = 5)")),expression(paste("Pterocliformes (", italic("n"), " = 1)")),expression(paste("Sphenisciformes (", italic("n"), " = 10)")),expression(paste("Struthioniformes (", italic("n"), " = 4)")))
 taxonomy_plot_final_wild <- data_final[data_final$Wild.Managed.Captive=="Wild",]  %>%
   mutate(Order = fct_relevel(Order,"Accipitriformes","Anseriformes","Bucerotiformes","Caprimulgiformes","Charadriiformes","Ciconiiformes","Columbiformes","Coraciiformes","Cuculiformes","Eurypygiformes","Falconiformes","Galliformes","Gruiformes","Passeriformes","Pelecaniformes","Piciformes","Podicipediformes","Procellariiformes","Psittaciformes","Pterocliformes","Sphenisciformes","Struthioniformes")) %>%
   ggplot(aes(x=Order, y=Mean.Hatching.Failure.std, fill=Order)) + 
   geom_boxplot() + 
-  labs(title="Plot of Mean Hatching Failure % according to Taxonomic Order\nFinal Dataset (Wild Only | n = 265)", x="Order", y="Mean Hatching Failure (%)")
+  labs(title="Plot of Mean Hatching Failure % according to Taxonomic Order\nFinal Dataset (Wild Only | n = 265)", x="Order", y="Mean hatching failure (%)")
 taxonomy_final_wild <- taxonomy_plot_final_wild + 
   theme_classic() + 
-  theme(axis.text.x=element_text(angle=90,hjust=0.95)) + 
-  scale_x_discrete(label=my.labels_tax_final_wild) + 
-  scale_fill_discrete(name="Order",labels=my.labels_tax_final_wild) + 
-  scale_fill_manual(values=c("#F7766D","#EE8043","#E18A00","#D19300","#A8A401","#8CAB02","#68B100","#3EB700","#3FBB49","#3FBE70","#3FC090","#3FC2AB","#3DBFC4","#37B5ED","#32ACFC","#42A0FF","#8B93FF","#B684FF","#D575FE","#EB69F0","#F562DD","#F665AC"),labels=my.labels_tax_final_wild)
+  theme(axis.text.x=element_text(angle=90,hjust=0.95),legend.text.align = 0) + 
+  scale_x_discrete(label=my.labels_tax_final_wild_italic) + 
+  scale_fill_discrete(name="Order",labels=my.labels_tax_final_wild_italic) + 
+  scale_fill_manual(values=c("#F7766D","#EE8043","#E18A00","#D19300","#A8A401","#8CAB02","#68B100","#3EB700","#3FBB49","#3FBE70","#3FC090","#3FC2AB","#3DBFC4","#37B5ED","#32ACFC","#42A0FF","#8B93FF","#B684FF","#D575FE","#EB69F0","#F562DD","#F665AC"),labels=my.labels_tax_final_wild_italic)
 taxonomy_final_wild
 
 ## Wild Managed Only
 my.labels_tax_final_wildmanaged <- c("Anseriformes (n=10)","Bucerotiformes (n=1)","Cathartiformes (n=3)","Charadriiformes (n=9)","Columbiformes (n=2)","Coraciiformes (n=1)","Falconiformes (n=9)","Galliformes (n=2)","Gruiformes (n=1)","Passeriformes (n=111)","Pelecaniformes (n=3)","Procellariiformes (n=1)","Psittaciformes (n=5)","Pterocliformes (n=1)","Strigiformes (n=11)","Struthioniformes (n=1)","Suliformes (n=1)")
+my.labels_tax_final_wildmanaged_italic <- c(expression(paste("Anseriformes (", italic("n"), " = 10)")),expression(paste("Bucerotiformes (", italic("n"), " = 1)")),expression(paste("Cathartiformes (", italic("n"), " = 3)")),expression(paste("Charadriiformes (", italic("n"), " = 9)")),expression(paste("Columbiformes (", italic("n"), " = 2)")),expression(paste("Coraciiformes (", italic("n"), " = 1)")),expression(paste("Falconiformes (", italic("n"), " = 9)")),expression(paste("Galliformes (", italic("n"), " = 2)")),expression(paste("Gruiformes (", italic("n"), " = 1)")),expression(paste("Passeriformes (", italic("n"), " = 111)")),expression(paste("Pelecaniformes (", italic("n"), " = 3)")),expression(paste("Procellariiformes (", italic("n"), " = 1)")),expression(paste("Psittaciformes (", italic("n"), " = 5)")),expression(paste("Pterocliformes (", italic("n"), " = 1)")),expression(paste("Strigiformes (", italic("n"), " = 11)")),expression(paste("Struthioniformes (", italic("n"), " = 1)")),expression(paste("Suliformes (", italic("n"), " = 1)")))
 taxonomy_plot_final_wildmanaged <- data_final[data_final$Wild.Managed.Captive=="ManagedWild",] %>%
   mutate(Order = fct_relevel(Order,"Anseriformes","Bucerotiformes","Cathartiformes","Charadriiformes","Columbiformes","Coraciiformes","Falconiformes","Galliformes","Gruiformes","Passeriformes","Pelecaniformes","Procellariiformes","Psittaciformes","Pterocliformes","Strigiformes","Struthioniformes","Suliformes")) %>%
   ggplot(aes(x=Order, y=Mean.Hatching.Failure.std, fill=Order)) + 
   geom_boxplot() +  
-  labs(title="Plot of Mean Failure % according to Taxonomic Order\nFinal Dataset (Wild Managed Only | n = 172)", x="Order", y="Mean Hatching Failure (%)")
+  labs(title="Plot of Mean Failure % according to Taxonomic Order\nFinal Dataset (Wild Managed Only | n = 172)", x="Order", y="Mean hatching failure (%)")
 taxonomy_final_wildmanaged <- taxonomy_plot_final_wildmanaged + 
   theme_classic() +  
-  theme(axis.text.x=element_text(angle=90,hjust=0.95)) + 
-  scale_x_discrete(label=my.labels_tax_final_wildmanaged) + 
-  scale_fill_discrete(name="Order",labels=my.labels_tax_final_wildmanaged) +  
-  scale_fill_manual(values=c("#EE8043","#E18A00","#BE9C00","#A8A401","#68B100","#3EB700","#3FC090","#3FC2AB","#3DBFC4","#37B5ED","#32ACFC","#B684FF","#D575FE","#EB69F0","#F561C6","#F665AC","#F66C91"),labels=my.labels_tax_final_wildmanaged)
+  theme(axis.text.x=element_text(angle=90,hjust=0.95),legend.text.align = 0) + 
+  scale_x_discrete(label=my.labels_tax_final_wildmanaged_italic) + 
+  scale_fill_discrete(name="Order",labels=my.labels_tax_final_wildmanaged_italic) +  
+  scale_fill_manual(values=c("#EE8043","#E18A00","#BE9C00","#A8A401","#68B100","#3EB700","#3FC090","#3FC2AB","#3DBFC4","#37B5ED","#32ACFC","#B684FF","#D575FE","#EB69F0","#F561C6","#F665AC","#F66C91"),labels=my.labels_tax_final_wildmanaged_italic)
 taxonomy_final_wildmanaged
 
 data_final[data_final$Wild.Managed.Captive=="Captive",]  %>%
@@ -906,16 +910,17 @@ data_final[data_final$Wild.Managed.Captive=="Captive",]  %>%
 
 ## Captive Only
 my.labels_tax_final_captive <- c("Anseriformes (n=4)","Cathartiformes (n=3)","Falconiformes (n=1)","Galliformes (n=8)","Gruiformes (n=1)","Otidiformes (n=2)","Passeriformes (n=14)","Pelecaniformes (n=1)","Psittaciformes (n=2)","Pterocliformes (n=4)","Sphenisciformes (n=1)")
+my.labels_tax_final_captive_italic <- c(expression(paste("Anseriformes (", italic("n"), " = 4)")),expression(paste("Cathartiformes (", italic("n"), " = 3)")),expression(paste("Falconiformes (", italic("n"), " = 1)")),expression(paste("Galliformes (", italic("n"), " = 8)")),expression(paste("Gruiformes (", italic("n"), " = 1)")),expression(paste("Otidiformes (", italic("n"), " = 2)")),expression(paste("Passeriformes (", italic("n"), " = 14)")),expression(paste("Pelecaniformes (", italic("n"), " = 1)")),expression(paste("Psittaciformes (", italic("n"), " = 2)")),expression(paste("Pterocliformes (", italic("n"), " = 4)")),expression(paste("Sphenisciformes (", italic("n"), " = 1)")))
 taxonomy_plot_final_captive <- data_final[data_final$Wild.Managed.Captive=="Captive",] %>%
   mutate(Order = fct_relevel(Order,"Anseriformes","Cathartiformes","Falconiformes","Galliformes","Gruiformes","Otidiformes","Passeriformes","Pelecaniformes","Psittaciformes","Pterocliformes","Sphenisciformes")) %>%
   ggplot(aes(x=Order, y=Mean.Hatching.Failure.std, fill=Order)) + 
   geom_boxplot() +  
-  labs(title="Plot of Mean Failure % according to Taxonomic Order\nFinal Dataset (Captive Only | n = 41)", x="Order", y="Mean Hatching Failure (%)")
+  labs(title="Plot of Mean Failure % according to Taxonomic Order\nFinal Dataset (Captive Only | n = 41)", x="Order", y="Mean hatching failure (%)")
 taxonomy_final_captive <- taxonomy_plot_final_captive + 
   theme_classic() + 
-  theme(axis.text.x=element_text(angle=90,hjust=0.95)) + 
-  scale_x_discrete(label=my.labels_tax_final_captive) + 
-  scale_fill_discrete(name="Order",labels=my.labels_tax_final_captive) +  
-  scale_fill_manual(values=c("#EE8043","#BE9C00","#3FC090","#3FC2AB","#3DBFC4","#3ABBDA","#37B5ED","#32ACFC","#D575FE","#EB69F0","#F562DD"),labels=my.labels_tax_final_captive) 
+  theme(axis.text.x=element_text(angle=90,hjust=0.95),legend.text.align = 0) + 
+  scale_x_discrete(label=my.labels_tax_final_captive_italic) + 
+  scale_fill_discrete(name="Order",labels=my.labels_tax_final_captive_italic) +  
+  scale_fill_manual(values=c("#EE8043","#BE9C00","#3FC090","#3FC2AB","#3DBFC4","#3ABBDA","#37B5ED","#32ACFC","#D575FE","#EB69F0","#F562DD"),labels=my.labels_tax_final_captive_italic) 
 taxonomy_final_captive
 
