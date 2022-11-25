@@ -788,7 +788,7 @@ final_forest %>%
 ## Figure S3 - Bubble Plot (publication year)
 ies.da$size <- (1/sqrt(ies.da$vi))/500
 ies.da$HF<-((data_final$Total-data_final$Cases)/(data_final$Total))*100
-plot(NA,NA,xlim=c(2004,2020),ylim=c(0,80), xlab="Publication Year", ylab="Hatching Failure (%)", las=1,bty="l", xaxt="none")
+plot(NA,NA,xlim=c(2004,2020),ylim=c(0,80), xlab="Publication year", ylab="Hatching failure (%)", las=1,bty="l", xaxt="none")
 axis(1,seq(2004,2020,2))
 symbols(ies.da$Publication.Year, ies.da$HF, circles=ies.da$size, inches=FALSE, add=TRUE, fg= rgb(0,0,0, max=255, alpha=150), pch=21, col=rgb(0,0,0, max=255), bg=rgb(255,255,255, max=255, alpha=150))
 lines(2004:2020, (preds$pred)*100, lty="dashed")
@@ -825,7 +825,7 @@ preds_original=predict(overall_phylo_sp_pubyear_original,newmods=c(1940,1949,195
 
 ies.da_originalyear$size <- (1/sqrt(ies.da_originalyear$vi))/500
 ies.da_originalyear$HF<-((data_final_originalyear$Total-data_final_originalyear$Cases)/(data_final_originalyear$Total))*100
-plot(NA,NA,xlim=c(1940,2020),ylim=c(0,80), xlab="Publication Year", ylab="Hatching Failure (%)", las=1,bty="l", xaxt="none")
+plot(NA,NA,xlim=c(1940,2020),ylim=c(0,80), xlab="Publication year", ylab="Hatching failure (%)", las=1,bty="l", xaxt="none")
 axis(1,seq(1940,2020,2))
 symbols(ies.da_originalyear$Original.Source_Publication.Year, ies.da_originalyear$HF, circles=ies.da_originalyear$size, inches=FALSE, add=TRUE, fg= rgb(0,0,0, max=255, alpha=150), pch=21, col=rgb(0,0,0, max=255), bg=rgb(255,255,255, max=255, alpha=150))
 lines(c(1940,1949,1959,1961,1963,1969,1971,1973,1981,1982,1983,1984,1986,1987,1988,1990,1992,1993,1994,1995,1997,1999:2020), (preds_original$pred)*100, lty="dashed")
