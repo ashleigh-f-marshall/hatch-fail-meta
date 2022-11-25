@@ -751,7 +751,8 @@ ggplot() +
   geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
   geom_point(data=includedMAP, aes(x=as.numeric(as.character(long)), y=as.numeric(as.character(lat)), color=IUCN.Status.Current_SUB)) +
   scale_colour_manual(name=expression(paste(italic("IUCN Red List"), " Classification")), breaks = c("CR","EN","VU","NT","LC"),
-                      values=c("#C00000","#ED7D31","#FFC000","#92D050","#00B050")) +
+                      values=c("#C00000","#ED7D31","#FFC000","#92D050","#00B050"),
+                      labels=c("Critically Endangered","Endangered","Vulnerable","Near Threatened","Least Concern")) +
   theme_void() +
   ggtitle("Study Locations of Final Dataset Population Records")
 
