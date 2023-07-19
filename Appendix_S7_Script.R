@@ -21,7 +21,7 @@ library("phytools")
 #### LOAD AND PREPARE DATA ####
 
 ## Read in data
-data <- read.csv("Data/REVISED_Appendix_S8_Dataset.csv")
+data <- read.csv("Data/Appendix_S5_Dataset.csv")
 dim(data) #483
 head(data$Study.Name.numbered)
 tail(data$Study.Name.numbered)
